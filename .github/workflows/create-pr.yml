@@ -1,9 +1,9 @@
-name: Create automatic PR
+name: Create PR to keep master branch in sync with develop
 
 on:
   push:
     branches:
-      - master
+      - develop
 
 jobs:
   updateAuthor:
@@ -14,19 +14,17 @@ jobs:
 
       - name: extract git commit data
         uses: rlespinasse/git-commit-data-action@v1.x
-
-      - name: Update author information
-        run: echo ${{ env.GIT_COMMIT_AUTHOR_NAME }} > AUTHOR
-
-      - name: Raise PR
-        uses: peter-evans/create-pull-request@v3
+        
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v4
         with:
-          branch: "develop"
+          branch: develop
           base: master
-          title: "Create auto pr using github workflow"
+          title: "PR created using github workflow"
           committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
           author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
           body:
-            Branch develop is a commit ahead! 
+            The develop branch is a commit ahead of master branch.
           token: ${{ secrets.GITHUB_TOKEN }}
           delete-branch: true
