@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: extract git commit data
-        uses: devopsthing/git-commit-data-action@v1.x
+        uses: rlespinasse/git-commit-data-action@v1.x
 
       - name: Update author information
         run: echo ${{ env.GIT_COMMIT_AUTHOR_NAME }} > AUTHOR
@@ -21,7 +21,7 @@ jobs:
       - name: Raise PR
         uses: peter-evans/create-pull-request@v3
         with:
-          branch: "develop"
+          branch: "tripathianky-patch-1"
           base: master
           title: "create auto pr using github workflow"
           committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
