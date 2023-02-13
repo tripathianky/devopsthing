@@ -1,4 +1,4 @@
-name: Create automatic PR
+name: Create PR to keep master branch in sync with develop
 
 on:
   push:
