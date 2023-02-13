@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+
 jobs:
   updateAuthor:
     runs-on: ubuntu-latest
@@ -18,12 +19,11 @@ jobs:
         run: echo ${{ env.GIT_COMMIT_AUTHOR_NAME }} > AUTHOR
 
       - name: Raise PR
-        id: test-1
         uses: peter-evans/create-pull-request@v3
         with:
           branch: "develop"
-          base: main
-          title: "create auto pr"
+          base: master
+          title: "create auto pr using github workflow"
           committer: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
           author: ${{ env.GIT_COMMIT_AUTHOR_NAME }} <${{ env.GIT_COMMIT_AUTHOR_EMAIL }}">
           body:
