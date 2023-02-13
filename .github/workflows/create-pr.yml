@@ -16,7 +16,6 @@ jobs:
         uses: rlespinasse/git-commit-data-action@v1.x
         
       - name: Create Pull Request
-        id: cpr
         uses: peter-evans/create-pull-request@v4
         with:
           branch: develop
