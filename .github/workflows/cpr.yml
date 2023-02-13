@@ -1,5 +1,8 @@
 name: Create Pull Request Example Command
-on: [push]
+on:
+  push:
+    branches:
+      - master
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
