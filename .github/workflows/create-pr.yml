@@ -17,6 +17,12 @@ jobs:
 
       - name: Update author information
         run: echo ${{ env.GIT_COMMIT_AUTHOR_NAME }} > AUTHOR
+        
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
 
       - name: Raise PR
         run: gh pr create --base master --head develop --title "PR created by github actions" --body "Branch develop is a commit ahead"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          delete-branch: true
