@@ -1,7 +1,5 @@
 name: Create Pull Request Example Command
-on:
-  repository_dispatch:
-    types: [master]
+on: [push]
 jobs:
   createPullRequest:
     runs-on: ubuntu-latest
@@ -28,8 +26,6 @@ jobs:
           labels: |
             report
             automated pr
-          assignees: peter-evans
-          reviewers: peter-evans
           milestone: 1
           draft: false
           branch: develop
