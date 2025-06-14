@@ -32,7 +32,8 @@ jobs:
           milestone: 1
           draft: false
           branch: develop
-          #delete-branch: true
+          base: master
+          delete-branch: false
 
       - name: Check output
         run: |
