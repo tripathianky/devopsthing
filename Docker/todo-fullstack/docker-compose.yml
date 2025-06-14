@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    image: tripathi1810/backend:0.0.1.RELEASE
+    restart: always
+    environment:
+      DATABASE_URL: postgresql://postgres:postgres@db:5432/postgres
+      FLASK_ENV: development
+    ports:
+      - "5051:5000"
+    depends_on:
+      - db
+    command: >
+      sh -c "python db_init.py && python app.py"
+
+  frontend:
+    image: tripathi1810/frontend:0.0.1.RELEASE
+    ports:
+      - "3011:3000"
+    depends_on:
+      - backend
+
+volumes:
+  pgdata:
