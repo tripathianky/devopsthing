@@ -19,14 +19,16 @@ def init_db():
         conn.commit()
         conn.close()
 
-@app.before_first_request
-def setup():
-    init_db()
-
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
+
+@app.before_request
+def setup_once():
+    if not hasattr(app, 'db_initialized'):
+        init_db()
+        app.db_initialized = True
 
 @app.route('/tasks', methods=['GET'])
 def get_tasks():
@@ -73,4 +75,7 @@ def delete_task(task_id):
     return '', 204
 
 if __name__ == '__main__':
+    # Initialize DB once when starting the app
+    init_db()
     app.run(host='0.0.0.0', port=5000)
+
